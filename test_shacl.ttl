@@ -1,0 +1,34 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix ex:    <https://nfdi4cat.org/ontologies/reac4cat_> .
+
+
+ex:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass ex:000077 ;
+	sh:property [
+        sh:path ex:000081 ;
+        sh:class ex:000078 ;
+        sh:minCount 1 ;
+    ] ;
+	sh:rule [
+	a 	sh:SPARQLRule ;
+        sh:prefixes [
+			sh:declare [
+				sh:namespace "https://nfdi4cat.org/ontologies/reac4cat_";
+				sh:prefix "ex";];
+				];
+        sh:construct """
+            CONSTRUCT {?a ex:000086 ?b.}
+            WHERE {
+                ?a a ex:000077 .
+                ?a ex:000081 ?b .
+                ?b a ex:000078 .
+            }
+        """ ;
+		
+    ]
+    .
