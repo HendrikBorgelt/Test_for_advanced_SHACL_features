@@ -1,9 +1,0 @@
-Validation Report
-Conforms: False
-Results (1):
-Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-	Severity: sh:Violation
-	Source Shape: [ sh:datatype xsd:integer ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path ex:height ]
-	Focus Node: ex:InvalidRectangle
-	Result Path: ex:height
-	Message: Less than 1 values on ex:InvalidRectangle->ex:height

@@ -1,0 +1,4 @@
+@prefix ns1: <https://nfdi4cat.org/ontologies/> .
+
+ns1:reac4cat_000084 ns1:reac4cat_000086 ns1:reac4cat_000085 .
+
