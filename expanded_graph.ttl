@@ -1,0 +1,113 @@
+@prefix ontologies: <https://nfdi4cat.org/ontologies/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.semanticweb.org/smhhborg/ontologies/2024/4/untitled-ontology-140> a rdfs:Resource,
+        owl:Ontology .
+
+ontologies:reac4cat_000084 a rdfs:Resource,
+        owl:NamedIndividual,
+        ontologies:reac4cat_000077 ;
+    rdfs:label "a_1"@de ;
+    ontologies:reac4cat_000081 ontologies:reac4cat_000085 ;
+    ontologies:reac4cat_000086 ontologies:reac4cat_000085 .
+
+rdf:type a rdf:Property ;
+    rdfs:subPropertyOf rdf:type .
+
+rdfs:label a rdf:Property ;
+    rdfs:subPropertyOf rdfs:label .
+
+rdfs:subPropertyOf a rdf:Property ;
+    rdfs:subPropertyOf rdfs:subPropertyOf .
+
+owl:Ontology a rdfs:Resource .
+
+ontologies:reac4cat_000077 a rdfs:Resource,
+        owl:Class ;
+    rdfs:label "A_1"@de .
+
+ontologies:reac4cat_000078 a rdfs:Resource,
+        owl:Class ;
+    rdfs:label "A_2"@de .
+
+ontologies:reac4cat_000079 a rdfs:Resource,
+        owl:Class ;
+    rdfs:label "A_3"@de .
+
+ontologies:reac4cat_000080 a rdfs:Resource,
+        owl:Class ;
+    rdfs:label "A_4"@de .
+
+ontologies:reac4cat_000081 a rdf:Property,
+        rdfs:Resource,
+        owl:ObjectProperty ;
+    rdfs:label "ra_1"@de ;
+    rdfs:subPropertyOf ontologies:reac4cat_000081 .
+
+ontologies:reac4cat_000082 a rdf:Property,
+        rdfs:Resource,
+        owl:ObjectProperty ;
+    rdfs:label "ra_2"@de ;
+    rdfs:subPropertyOf owl:topObjectProperty,
+        ontologies:reac4cat_000082 .
+
+ontologies:reac4cat_000083 a rdf:Property,
+        rdfs:Resource,
+        owl:ObjectProperty ;
+    rdfs:label "ra_3"@de ;
+    rdfs:subPropertyOf owl:topObjectProperty,
+        ontologies:reac4cat_000083 .
+
+"A_1"@de a rdfs:Resource .
+
+"A_2"@de a rdfs:Resource .
+
+"A_3"@de a rdfs:Resource .
+
+"A_4"@de a rdfs:Resource .
+
+"a_1"@de a rdfs:Resource .
+
+"a_2"@de a rdfs:Resource .
+
+"a_3"@de a rdfs:Resource .
+
+"a_4"@de a rdfs:Resource .
+
+"ra_1"@de a rdfs:Resource .
+
+"ra_2"@de a rdfs:Resource .
+
+"ra_3"@de a rdfs:Resource .
+
+ontologies:reac4cat_000085 a rdfs:Resource,
+        owl:NamedIndividual,
+        ontologies:reac4cat_000078 ;
+    rdfs:label "a_2"@de ;
+    owl:topObjectProperty ontologies:reac4cat_000086,
+        ontologies:reac4cat_000088 ;
+    ontologies:reac4cat_000082 ontologies:reac4cat_000086 ;
+    ontologies:reac4cat_000083 ontologies:reac4cat_000088 .
+
+ontologies:reac4cat_000086 a rdfs:Resource,
+        owl:NamedIndividual,
+        ontologies:reac4cat_000079 ;
+    rdfs:label "a_3"@de .
+
+ontologies:reac4cat_000088 a rdfs:Resource,
+        owl:NamedIndividual,
+        ontologies:reac4cat_000080 ;
+    rdfs:label "a_4"@de .
+
+owl:ObjectProperty a rdfs:Resource .
+
+owl:topObjectProperty a rdf:Property,
+        rdfs:Resource ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+owl:Class a rdfs:Resource .
+
+owl:NamedIndividual a rdfs:Resource .
+
