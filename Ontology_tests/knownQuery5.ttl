@@ -1,0 +1,68 @@
+PREFIX cml: <http://www.xml-cml.org/schema/cml2/core#>
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX : <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcam: <http://purl.org/dc/dcam/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX om-2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX terms: <http://purl.org/dc/terms/>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX property: <http://purl.allotrope.org/ontologies/property#>
+PREFIX reac4cat: <https://nfdi4cat.org/ontologies/reac4cat_>
+BASE <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+
+SELECT ?experimentReaction ?idealReaction
+WHERE {
+  # Idealized Reaction
+  ?idealReaction a reac4cat:000025 .
+  # Experimental Reaction
+  ?experimentReaction a reac4cat:000059 .
+  
+  
+  {
+    SELECT  ?idealReaction  (GROUP_CONCAT(DISTINCT ?idealReactantSubstance ; separator=",") AS ?idealReactantsList) 
+                            (GROUP_CONCAT(DISTINCT ?idealProductSubstance ; separator=",") AS ?idealProductsList)
+    WHERE {
+      ?idealReaction reac4cat:000006 ?InitialMixture .
+      ?InitialMixture reac4cat:000004 ?idealReactantSubstance .
+      
+      ?idealReaction reac4cat:000008 ?idealProduct .
+      ?idealProduct reac4cat:000004 ?idealProductSubstance .
+    }
+    GROUP BY ?idealReaction
+  }
+
+
+  {
+    SELECT ?experimentReaction 	(GROUP_CONCAT(DISTINCT ?experimentReactantSubstance ; separator=",") AS ?experimentReactantsList) 
+								(GROUP_CONCAT(DISTINCT ?experimentProductSubstance ; separator=",") AS ?experimentProductsList)
+    WHERE {
+      ?experimentReaction reac4cat:000006 ?experimentInitialMixture .
+      ?experimentInitialMixture reac4cat:000004 ?experimentReactantSubstance .
+      
+      ?experimentReaction reac4cat:000008 ?experimentProduct .
+      ?experimentProduct reac4cat:000004 ?experimentProductSubstance .
+    }
+    GROUP BY ?experimentReaction
+  }
+
+
+  FILTER NOT EXISTS{
+      ?experimentReaction reac4cat:000006 ?experimentInitialMixtures .
+      ?experimentInitialMixtures reac4cat:000004 ?experimentReactantSubstances .
+	  FILTER(?experimentReactantSubstances IN (?idealReactantsList)).
+  }  
+  
+  FILTER NOT EXISTS{
+      ?experimentReaction reac4cat:000008 ?experimentProducts .
+      ?experimentProducts reac4cat:000004 ?experimentProductSubstances .
+	  FILTER(?experimentProductSubstances IN (?idealReactantsList)).
+  }
+}

@@ -1,0 +1,69 @@
+@prefix cml: <http://www.xml-cml.org/schema/cml2/core#> .
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+
+# Define reactants and products with their chemical structures
+ex:Reactant1 cml:chemicalStructure "SMILES:CCO" .  # Ethanol
+ex:Reactant2 cml:chemicalStructure "SMILES:O=C=O" .  # Carbon dioxide
+ex:Reactant3 cml:chemicalStructure "SMILES:CC(=O)O" .  # Acetic acid
+ex:Reactant4 cml:chemicalStructure "SMILES:H2O" .  # Water
+ex:Reactant5 cml:chemicalStructure "SMILES:O2" .  # Oxygen
+
+ex:Product1 cml:chemicalStructure "SMILES:CCOCC(=O)O" .  # Ethyl acetate
+ex:Product2 cml:chemicalStructure "SMILES:CCOCC" .  # Diethyl ether
+ex:Product3 cml:chemicalStructure "SMILES:COO" .  # Formate
+ex:Product4 cml:chemicalStructure "SMILES:CCOCO" .  # Ethylene glycol
+
+# Idealized Reaction 1: Ethanol + Carbon dioxide -> Ethyl acetate
+ex:IdealReaction1 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Reactant1 , ex:Reactant2 ;
+                  ro:hasProduct ex:Product1 .
+
+# Idealized Reaction 2: Acetic acid -> Diethyl ether + Formate
+ex:IdealReaction2 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Reactant3 ;
+                  ro:hasProduct ex:Product2 , ex:Product3 .
+
+# Idealized Reaction 3: Ethanol -> Ethylene glycol
+ex:IdealReaction3 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Reactant1 ;
+                  ro:hasProduct ex:Product4 .
+
+# Experimental Reaction 1: Matches Idealized Reaction 1 exactly
+ex:ExperimentReaction1 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant1 , ex:Reactant2 ;
+                       ro:hasProduct ex:Product1 .
+
+# Experimental Reaction 2: Matches Idealized Reaction 2 with an additional reactant (Water)
+ex:ExperimentReaction2 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant3 , ex:Reactant4 ;  # Additional reactant (Water)
+                       ro:hasProduct ex:Product2 , ex:Product3 .
+
+# Experimental Reaction 3: More reactants but matches Idealized Reaction 1 in relevant reactants and products
+ex:ExperimentReaction3 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant1 , ex:Reactant2 , ex:Reactant4 ;  # Additional reactant (Water)
+                       ro:hasProduct ex:Product1 .
+
+# Experimental Reaction 4: Correct reactants for Idealized Reaction 1 but incorrect product
+ex:ExperimentReaction4 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant1 , ex:Reactant2 ;
+                       ro:hasProduct ex:Product2 .  # Incorrect product
+
+# Experimental Reaction 5: Matches Idealized Reaction 3 with an additional reactant (Oxygen)
+ex:ExperimentReaction5 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant1 , ex:Reactant5 ;  # Additional reactant (Oxygen)
+                       ro:hasProduct ex:Product4 .
+
+# Experimental Reaction 6: Non-matching reaction with entirely different products
+ex:ExperimentReaction6 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant2 , ex:Reactant4 ;  # Different set of reactants
+                       ro:hasProduct ex:Product3 .  # Different product

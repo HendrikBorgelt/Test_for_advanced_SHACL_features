@@ -1,0 +1,42 @@
+@prefix cml: <http://www.xml-cml.org/schema/cml2/core#> .
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+
+# Define reactants and products with their chemical structures
+ex:Reactant1 cml:chemicalStructure "SMILES:CCO" .
+ex:Reactant2 cml:chemicalStructure "SMILES:O=C=O" .
+ex:Reactant3 cml:chemicalStructure "SMILES:CC(=O)O" .
+
+ex:Product1 cml:chemicalStructure "SMILES:CCOCC(=O)O" .
+ex:Product2 cml:chemicalStructure "SMILES:CCOCC" .
+ex:Product3 cml:chemicalStructure "SMILES:COO" .
+
+# Idealized Reaction 1
+ex:IdealReaction1 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Reactant1 , ex:Reactant2 ;
+                  ro:hasProduct ex:Product1 .
+
+# Idealized Reaction 2
+ex:IdealReaction2 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Reactant3 ;
+                  ro:hasProduct ex:Product2 , ex:Product3 .
+
+# Experimental Reaction 1 (matching Idealized Reaction 1)
+ex:ExperimentReaction1 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant1 , ex:Reactant2 ;
+                       ro:hasProduct ex:Product1 .
+
+# Experimental Reaction 2 (matching Idealized Reaction 2)
+ex:ExperimentReaction2 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant3 ;
+                       ro:hasProduct ex:Product2 , ex:Product3 .
+
+# Experimental Reaction 3 (non-matching)
+ex:ExperimentReaction3 a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ex:Reactant2 ;
+                       ro:hasProduct ex:Product1 , ex:Product2 .

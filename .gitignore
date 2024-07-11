@@ -1,1 +1,4 @@
 /test_venv
+/shacl-1.4.3-bin
+*.bat
+Command_for_TopBraid_API.txt

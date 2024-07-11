@@ -1,0 +1,36 @@
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX ex: <http://www.example.org/chemicals#>
+
+SELECT DISTINCT ?experimentalReaction ?idealReaction
+WHERE {
+  # Match idealized reactions and their components
+  ?idealReaction a ro:Reaction ;
+                 ro:type "idealized" ;
+                 ex:hasInitialMixture ?idealInitialMixture ;
+                 ex:hasProductMixture ?idealProductMixture .
+  
+  ?idealInitialMixture ro:hasReactant ?idealReactant .
+  ?idealProductMixture ro:hasProduct ?idealProduct .
+
+  # Match experimental reactions and their components
+  ?experimentalReaction a ro:Reaction ;
+                        ro:type "experimental" ;
+                        ex:hasInitialMixture ?experimentalInitialMixture ;
+                        ex:hasProductMixture ?experimentalProductMixture .
+  
+  # Ensure all reactants of the idealized reaction are present in the experimental reaction
+  FILTER NOT EXISTS {
+    ?idealInitialMixture ro:hasReactant ?idealReactant .
+    FILTER NOT EXISTS {
+      ?experimentalInitialMixture ro:hasReactant ?idealReactant .
+    }
+  }
+  
+  # Ensure all products of the idealized reaction are present in the experimental reaction
+  FILTER NOT EXISTS {
+    ?idealProductMixture ro:hasProduct ?idealProduct .
+    FILTER NOT EXISTS {
+      ?experimentalProductMixture ro:hasProduct ?idealProduct .
+    }
+  }
+}

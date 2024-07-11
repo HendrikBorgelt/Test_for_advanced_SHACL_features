@@ -1,0 +1,42 @@
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX ex: <http://www.example.org/chemicals#>
+
+SELECT DISTINCT ?experimentalReaction ?idealReaction (GROUP_CONCAT(DISTINCT ?reactant; separator=", ") AS ?reactants) (GROUP_CONCAT(DISTINCT ?product; separator=", ") AS ?products)
+WHERE {
+  # Match idealized reactions and their components
+  ?idealReaction a ro:Reaction ;
+                 ro:type "idealized" ;
+                 ex:hasInitialMixture ?idealInitialMixture ;
+                 ex:hasProductMixture ?idealProductMixture .
+  
+  ?idealInitialMixture ro:hasReactant ?idealReactant .
+  ?idealProductMixture ro:hasProduct ?idealProduct .
+
+  # Match experimental reactions and their components
+  ?experimentalReaction a ro:Reaction ;
+                        ro:type "experimental" ;
+                        ex:hasInitialMixture ?experimentalInitialMixture ;
+                        ex:hasProductMixture ?experimentalProductMixture .
+  
+  ?experimentalInitialMixture ro:hasReactant ?experimentalReactant .
+  ?experimentalProductMixture ro:hasProduct ?experimentalProduct .
+
+  # Ensure that reactants and products of the idealized reaction are present in the experimental reaction
+  {
+    ?idealInitialMixture ro:hasReactant ?idealReactant .
+    ?experimentalInitialMixture ro:hasReactant ?idealReactant .
+    BIND(?idealReactant AS ?reactant)
+  }
+  UNION
+  {
+    ?idealProductMixture ro:hasProduct ?idealProduct .
+    ?experimentalProductMixture ro:hasProduct ?idealProduct .
+    BIND(?idealProduct AS ?product)
+  }
+}
+GROUP BY ?experimentalReaction ?idealReaction
+HAVING (
+  COUNT(DISTINCT ?idealReactant) = (COUNT(DISTINCT ?reactant) - COUNT(DISTINCT ?product))
+  && 
+  COUNT(DISTINCT ?idealProduct) = COUNT(DISTINCT ?product)
+)

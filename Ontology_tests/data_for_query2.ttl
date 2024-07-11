@@ -1,0 +1,56 @@
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+
+# Idealized Reaction 1: Ethanol + Carbon dioxide -> Ethyl acetate
+ex:IdealReaction1 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Ethanol , ex:CarbonDioxide ;
+                  ro:hasProduct ex:EthylAcetate .
+
+# Idealized Reaction 2: Acetic acid -> Diethyl ether + Formate
+ex:IdealReaction2 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:AceticAcid ;
+                  ro:hasProduct ex:DiethylEther , ex:Formate .
+
+# Idealized Reaction 3: Ethanol -> Ethylene glycol
+ex:IdealReaction3 a ro:Reaction ;
+                  ro:type "idealized" ;
+                  ro:hasReactant ex:Ethanol ;
+                  ro:hasProduct ex:EthyleneGlycol .
+
+# Experimental Reaction 1: Matches Idealized Reaction 1
+ex:ExperimentalReaction1 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:Ethanol , ex:CarbonDioxide ;
+                         ro:hasProduct ex:EthylAcetate .
+
+# Experimental Reaction 2: Matches Idealized Reaction 2
+ex:ExperimentalReaction2 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:AceticAcid ;
+                         ro:hasProduct ex:DiethylEther , ex:Formate .
+
+# Experimental Reaction 3: Matches Idealized Reaction 1 with additional reactant
+ex:ExperimentalReaction3 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:Ethanol , ex:CarbonDioxide , ex:Methanol ;
+                         ro:hasProduct ex:EthylAcetate .
+
+# Experimental Reaction 4: Matches Idealized Reaction 1 with incorrect product
+ex:ExperimentalReaction4 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:Ethanol , ex:CarbonDioxide ;
+                         ro:hasProduct ex:DiethylEther .
+
+# Experimental Reaction 5: Matches Idealized Reaction 3
+ex:ExperimentalReaction5 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:Ethanol ;
+                         ro:hasProduct ex:EthyleneGlycol .
+
+# Experimental Reaction 6: Non-matching reaction
+ex:ExperimentalReaction6 a ro:Reaction ;
+                         ro:type "experimental" ;
+                         ro:hasReactant ex:Methanol , ex:CarbonDioxide ;
+                         ro:hasProduct ex:EthylAcetate .

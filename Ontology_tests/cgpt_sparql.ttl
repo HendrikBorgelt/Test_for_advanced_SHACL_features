@@ -1,0 +1,40 @@
+PREFIX cml: <http://www.xml-cml.org/schema/cml2/core#>
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+
+SELECT ?idealReaction ?experimentReaction
+WHERE {
+  # Group reactants and products for the idealized reactions
+  ?idealReaction a ro:Reaction ;
+                 ro:type "idealized" .
+
+  {
+    SELECT ?idealReaction (GROUP_CONCAT(DISTINCT ?idealReactantStructure ; separator=",") AS ?idealReactantsList) (GROUP_CONCAT(DISTINCT ?idealProductStructure ; separator=",") AS ?idealProductsList)
+    WHERE {
+      ?idealReaction ro:hasReactant ?idealReactant .
+      ?idealReactant cml:chemicalStructure ?idealReactantStructure .
+      
+      ?idealReaction ro:hasProduct ?idealProduct .
+      ?idealProduct cml:chemicalStructure ?idealProductStructure .
+    }
+    GROUP BY ?idealReaction
+  }
+
+  # Group reactants and products for the experimental reactions
+  ?experimentReaction a ro:Reaction ;
+                      ro:type "experimental" .
+
+  {
+    SELECT ?experimentReaction (GROUP_CONCAT(DISTINCT ?experimentReactantStructure ; separator=",") AS ?experimentReactantsList) (GROUP_CONCAT(DISTINCT ?experimentProductStructure ; separator=",") AS ?experimentProductsList)
+    WHERE {
+      ?experimentReaction ro:hasReactant ?experimentReactant .
+      ?experimentReactant cml:chemicalStructure ?experimentReactantStructure .
+      
+      ?experimentReaction ro:hasProduct ?experimentProduct .
+      ?experimentProduct cml:chemicalStructure ?experimentProductStructure .
+    }
+    GROUP BY ?experimentReaction
+  }
+
+  # Compare the grouped lists of reactants and products
+  FILTER (STR(?idealReactantsList) = STR(?experimentReactantsList) && STR(?idealProductsList) = STR(?experimentProductsList))
+}

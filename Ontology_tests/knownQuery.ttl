@@ -1,0 +1,72 @@
+PREFIX cml: <http://www.xml-cml.org/schema/cml2/core#>
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX : <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcam: <http://purl.org/dc/dcam/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX om-2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX terms: <http://purl.org/dc/terms/>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX property: <http://purl.allotrope.org/ontologies/property#>
+PREFIX reac4cat: <https://nfdi4cat.org/ontologies/reac4cat#>
+BASE <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+
+SELECT ?experimentReaction ?idealReaction
+WHERE {
+  # Idealized Reaction
+  ?idealReaction a ro:Reaction ;
+                 ro:type "idealized" .
+
+  {
+    SELECT  ?idealReaction  (GROUP_CONCAT(DISTINCT ?idealReactantStructure ; separator=",") AS ?idealReactantsList) 
+                            (GROUP_CONCAT(DISTINCT ?idealProductStructure ; separator=",") AS ?idealProductsList)
+    WHERE {
+      ?idealReaction ro:hasReactant ?idealReactant .
+      ?idealReactant cml:chemicalStructure ?idealReactantStructure .
+      
+      ?idealReaction ro:hasProduct ?idealProduct .
+      ?idealProduct cml:chemicalStructure ?idealProductStructure .
+    }
+    GROUP BY ?idealReaction
+  }
+
+  # Experimental Reaction
+  ?experimentReaction a ro:Reaction ;
+                      ro:type "experimental" .
+
+  {
+    SELECT ?experimentReaction 	(GROUP_CONCAT(DISTINCT ?experimentReactantStructure ; separator=",") AS ?experimentReactantsList) 
+								(GROUP_CONCAT(DISTINCT ?experimentProductStructure ; separator=",") AS ?experimentProductsList)
+    WHERE {
+      ?experimentReaction ro:hasReactant ?experimentReactant .
+      ?experimentReactant cml:chemicalStructure ?experimentReactantStructure .
+      
+      ?experimentReaction ro:hasProduct ?experimentProduct .
+      ?experimentProduct cml:chemicalStructure ?experimentProductStructure .
+    }
+    GROUP BY ?experimentReaction
+  }
+
+  # Compare the product lists exactly
+  FILTER (STR(?idealProductsList) = STR(?experimentProductsList))
+  
+  # Ensure all ideal reactants are in the experimental reactants list
+  FILTER NOT EXISTS {
+    # Iterate over each ideal reactant
+    ?idealReaction ro:hasReactant ?idealReactant .
+    ?idealReactant cml:chemicalStructure ?idealReactantStructure .
+    
+    # Check if this ideal reactant is missing in the experimental reaction's reactants
+    FILTER NOT EXISTS {
+      ?experimentReaction ro:hasReactant ?experimentReactant .
+      ?experimentReactant cml:chemicalStructure ?idealReactantStructure .
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ex="http://www.example.org/chemicals#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:ro="http://www.example.org/reaction-ontology#"
+>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction2">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e2"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_i2">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#DiethylEther"/>
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#Formate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction1">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e1"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction4">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e3"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#IdealReaction3">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>idealized</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_i3"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_i3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_e1">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#EthylAcetate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#IdealReaction1">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>idealized</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_i1"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_i1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_e3">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Ethanol"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#CarbonDioxide"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Methanol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_e2">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#AceticAcid"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Methanol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction3">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e3"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_e4">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Ethanol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction5">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e4"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_e1">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Ethanol"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#CarbonDioxide"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_e3">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#DiethylEther"/>
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#Formate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ExperimentalReaction6">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>experimental</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_e5"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_e2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_i3">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Ethanol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_i3">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#EthyleneGlycol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#IdealReaction2">
+    <rdf:type rdf:resource="http://www.example.org/reaction-ontology#Reaction"/>
+    <ro:type>idealized</ro:type>
+    <ex:hasInitialMixture rdf:resource="http://www.example.org/chemicals#InitialMixture_i2"/>
+    <ex:hasProductMixture rdf:resource="http://www.example.org/chemicals#ProductMixture_i2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_i1">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Ethanol"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#CarbonDioxide"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_i1">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#EthylAcetate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_e5">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#Methanol"/>
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#CarbonDioxide"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_e4">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#DiethylEther"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#ProductMixture_e5">
+    <ro:hasProduct rdf:resource="http://www.example.org/chemicals#EthyleneGlycol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/chemicals#InitialMixture_i2">
+    <ro:hasReactant rdf:resource="http://www.example.org/chemicals#AceticAcid"/>
+  </rdf:Description>
+</rdf:RDF>

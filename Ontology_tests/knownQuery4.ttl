@@ -1,0 +1,35 @@
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX ex: <http://www.example.org/chemicals#>
+
+SELECT DISTINCT ?experimentalReaction ?idealizedReaction
+WHERE {
+  # Find all idealized reactions
+  ?idealizedReaction a ro:Reaction ;
+                    ro:type "idealized" ;
+                    ro:hasReactant ?idealReactant ;
+                    ro:hasProduct ?idealProduct .
+
+  # Find all experimental reactions
+  ?experimentalReaction a ro:Reaction ;
+                       ro:type "experimental" ;
+                       ro:hasReactant ?experimentalReactant ;
+                       ro:hasProduct ?experimentalProduct .
+
+  # Check if all idealized reactants have at least one matching experimental reactant
+  FILTER NOT EXISTS {
+    ?idealReactant ro:chemicalStructure ?idealReactantStructure .
+    FILTER NOT EXISTS {
+      ?experimentalReactant ro:chemicalStructure ?experimentalReactantStructure .
+      FILTER(REGEX(?idealReactantStructure, ?experimentalReactantStructure))
+    }
+  }
+
+  # Check if all idealized products have at least one matching experimental product
+  FILTER NOT EXISTS {
+    ?idealProduct ro:chemicalStructure ?idealProductStructure .
+    FILTER NOT EXISTS {
+      ?experimentalProduct ro:chemicalStructure ?experimentalProductStructure .
+      FILTER(REGEX(?idealProductStructure, ?experimentalProductStructure))
+    }
+  }
+}

@@ -1,0 +1,39 @@
+PREFIX cml: <http://www.xml-cml.org/schema/cml2/core#>
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX : <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcam: <http://purl.org/dc/dcam/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX om-2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX terms: <http://purl.org/dc/terms/>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX property: <http://purl.allotrope.org/ontologies/property#>
+PREFIX reac4cat: <https://nfdi4cat.org/ontologies/reac4cat_>
+BASE <https://nfdi4cat.org/ontologies/reac4cat_with_examples>
+
+SELECT ?experimentReaction ?idealReaction
+WHERE {
+  # Idealized Reaction
+  ?idealReaction a reac4cat:000025 .
+
+  
+  # Ensure all ideal reactants are in the experimental reactants list
+  FILTER NOT EXISTS {
+    # Iterate over each ideal reactant
+    ?idealReaction reac4cat:000006 ?InitialMixtures .
+    ?InitialMixtures reac4cat:000004 ?idealReactantSubstances .
+    
+    # Check if this ideal reactant is missing in the experimental reaction's reactants
+    FILTER NOT EXISTS {
+      ?experimentReaction reac4cat:000006 ?experimentInitialMixtures .
+      ?experimentInitialMixtures reac4cat:000004 ?idealReactantSubstances .
+    }
+  }  
+}

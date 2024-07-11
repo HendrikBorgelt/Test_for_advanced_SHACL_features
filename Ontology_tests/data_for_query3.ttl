@@ -1,0 +1,81 @@
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+
+# Idealized Reaction 1: Ethanol + Carbon dioxide -> Ethyl acetate
+ex:IdealReaction1 a ro:Reaction ;
+                  ro:type "idealized" ;
+				  ex:hasInitialMixture ex:InitialMixture_i1;
+				  ex:hasProductMixture ex:ProductMixture_i1 .
+				  
+ex:InitialMixture_i1 ro:hasReactant ex:Ethanol , ex:CarbonDioxide .
+ex:ProductMixture_i1 ro:hasProduct ex:EthylAcetate .
+
+# Idealized Reaction 2: Acetic acid -> Diethyl ether + Formate
+ex:IdealReaction2 a ro:Reaction ;
+                  ro:type "idealized" ;
+				  ex:hasInitialMixture ex:InitialMixture_i2;
+				  ex:hasProductMixture ex:ProductMixture_i2 .
+				  
+ex:InitialMixture_i2 ro:hasReactant ex:AceticAcid .
+ex:ProductMixture_i2 ro:hasProduct ex:DiethylEther , ex:Formate .
+
+# Idealized Reaction 3: Ethanol -> Ethylene glycol
+ex:IdealReaction3 a ro:Reaction ;
+                  ro:type "idealized" ;
+				  ex:hasInitialMixture ex:InitialMixture_i3;
+				  ex:hasProductMixture ex:ProductMixture_i3 .
+				  
+ex:InitialMixture_i3 ro:hasReactant ex:Ethanol .
+ex:ProductMixture_i3 ro:hasProduct ex:EthyleneGlycol .
+
+# Experimental Reaction 1: Matches Idealized Reaction 1
+ex:ExperimentalReaction1 a ro:Reaction ;
+                         ro:type "experimental" ;
+						 ex:hasInitialMixture ex:InitialMixture_e1;
+						 ex:hasProductMixture ex:ProductMixture_e1 .
+						 
+ex:InitialMixture_e1 ro:hasReactant ex:Ethanol , ex:CarbonDioxide .
+ex:ProductMixture_e1 ro:hasProduct ex:EthylAcetate .
+
+# Experimental Reaction 2: Matches Idealized Reaction 2
+ex:ExperimentalReaction2 a ro:Reaction ;
+                         ro:type "experimental" ;
+						 ex:hasInitialMixture ex:InitialMixture_e2;
+						 ex:hasProductMixture ex:ProductMixture_e3 .
+						 
+ex:InitialMixture_e2 ro:hasReactant ex:AceticAcid, ex:Methanol .
+ex:ProductMixture_e3 ro:hasProduct ex:DiethylEther , ex:Formate .
+
+# Experimental Reaction 3: Matches Idealized Reaction 1 with additional reactant
+ex:ExperimentalReaction3 a ro:Reaction ;
+                         ro:type "experimental" ;						
+						 ex:hasInitialMixture ex:InitialMixture_e3;
+						 ex:hasProductMixture ex:ProductMixture_e1 .
+
+ex:InitialMixture_e3 ro:hasReactant ex:Ethanol , ex:CarbonDioxide , ex:Methanol .
+
+# Experimental Reaction 4: Matches Idealized Reaction 1 with incorrect product
+ex:ExperimentalReaction4 a ro:Reaction ;
+                         ro:type "experimental" ;						 
+						 ex:hasInitialMixture ex:InitialMixture_e3;
+						 ex:hasProductMixture ex:ProductMixture_e4 .
+						 
+ex:ProductMixture_e4 ro:hasProduct ex:DiethylEther .
+
+# Experimental Reaction 5: Matches Idealized Reaction 3
+ex:ExperimentalReaction5 a ro:Reaction ;
+                         ro:type "experimental" ;
+						 ex:hasInitialMixture ex:InitialMixture_e4;
+						 ex:hasProductMixture ex:ProductMixture_e5 .
+
+ex:InitialMixture_e4 ro:hasReactant ex:Ethanol .
+ex:ProductMixture_e5 ro:hasProduct ex:EthyleneGlycol .
+
+# Experimental Reaction 6: Non-matching reaction
+ex:ExperimentalReaction6 a ro:Reaction ;
+                         ro:type "experimental" ;
+						 ex:hasInitialMixture ex:InitialMixture_e5;
+						 ex:hasProductMixture ex:ProductMixture_e2 .
+						 
+ex:InitialMixture_e5 ro:hasReactant ex:Methanol , ex:CarbonDioxide .
+

@@ -1,0 +1,55 @@
+PREFIX ro: <http://www.example.org/reaction-ontology#>
+PREFIX ex: <http://www.example.org/chemicals#>
+
+SELECT DISTINCT ?experimentalReaction ?idealReaction ?reactants ?products
+WHERE {
+  # Match idealized reactions and their components
+  ?idealReaction a ro:Reaction ;
+                 ro:type "idealized" ;
+                 ex:hasInitialMixture ?idealInitialMixture ;
+                 ex:hasProductMixture ?idealProductMixture .
+  
+  ?idealInitialMixture ro:hasReactant ?idealReactant .
+  ?idealProductMixture ro:hasProduct ?idealProduct .
+
+  # Collect all reactants and products of the idealized reaction
+  {
+    SELECT ?idealReaction (GROUP_CONCAT(DISTINCT ?idealReactant; separator=", ") AS ?idealReactants) (GROUP_CONCAT(DISTINCT ?idealProduct; separator=", ") AS ?idealProducts)
+    WHERE {
+      ?idealReaction a ro:Reaction ;
+                     ro:type "idealized" ;
+                     ex:hasInitialMixture ?idealInitialMixture ;
+                     ex:hasProductMixture ?idealProductMixture .
+      
+      ?idealInitialMixture ro:hasReactant ?idealReactant .
+      ?idealProductMixture ro:hasProduct ?idealProduct .
+    }
+    GROUP BY ?idealReaction
+  }
+
+  # Collect all reactants and products of the experimental reaction
+  {
+    SELECT ?experimentalReaction (GROUP_CONCAT(DISTINCT ?experimentalReactant; separator=", ") AS ?experimentalReactants) (GROUP_CONCAT(DISTINCT ?experimentalProduct; separator=", ") AS ?experimentalProducts)
+    WHERE {
+      ?experimentalReaction a ro:Reaction ;
+                           ro:type "experimental" ;
+                           ex:hasInitialMixture ?experimentalInitialMixture ;
+                           ex:hasProductMixture ?experimentalProductMixture .
+      
+      OPTIONAL {
+        ?experimentalInitialMixture ro:hasReactant ?idealReactant .
+        BIND(IF(BOUND(?idealReactant), ?idealReactant, "") AS ?experimentalReactant)
+      }
+      
+      OPTIONAL {
+        ?experimentalProductMixture ro:hasProduct ?idealProduct .
+        BIND(IF(BOUND(?idealProduct), ?idealProduct, "") AS ?experimentalProduct)
+      }
+    }
+    GROUP BY ?experimentalReaction
+  }
+
+  # Ensure ?reactants and ?products are bound correctly
+  BIND(COALESCE(?experimentalReactants, "") AS ?reactants)
+  BIND(COALESCE(?experimentalProducts, "") AS ?products)
+}
