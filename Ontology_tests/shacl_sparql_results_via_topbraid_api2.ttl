@@ -1,0 +1,24 @@
+@prefix dash:    <http://datashapes.org/dash#> .
+@prefix ex:      <http://www.example.org/chemicals#> .
+@prefix graphql: <http://datashapes.org/graphql#> .
+@prefix n4cat:   <https://nfdi4cat.org/ontologies/reac4cat_> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ro:      <http://www.example.org/reaction-ontology#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix swa:     <http://topbraid.org/swa#> .
+@prefix tosh:    <http://topbraid.org/tosh#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+ex:ExperimentalReaction3
+        n4cat:hasIdealizedReaction  ex:IdealReaction1 .
+
+ex:ExperimentalReaction1
+        n4cat:hasIdealizedReaction  ex:IdealReaction1 .
+
+ex:ExperimentalReaction5
+        n4cat:hasIdealizedReaction  ex:IdealReaction3 .
+
+ex:ExperimentalReaction2
+        n4cat:hasIdealizedReaction  ex:IdealReaction2 .

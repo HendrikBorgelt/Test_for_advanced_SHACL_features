@@ -1,0 +1,114 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+
+# Shape for validating Reaction instances
+ex:ReactionShape
+    a sh:NodeShape ;
+    sh:targetClass ro:Reaction ;
+    sh:property [
+        sh:path ro:type ;
+        sh:datatype xsd:string ;
+        sh:in ( "idealized" "experimental" ) ;
+    ] ;
+    sh:property [
+        sh:path ex:hasInitialMixture ;
+        sh:class ex:MixtureShape ;
+    ] ;
+    sh:property [
+        sh:path ex:hasProductMixture ;
+        sh:class ex:MixtureShape ;
+    ] .
+
+# Shape for validating InitialMixture instances
+ex:InitialMixtureShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf ex:hasInitialMixture ;
+    sh:property [
+        sh:path ro:hasReactant ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+# Shape for validating ProductMixture instances
+ex:ProductMixtureShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf ex:hasProductMixture ;
+    sh:property [
+        sh:path ro:hasProduct ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+# General Mixture shape to validate both Initial and Product Mixtures
+ex:MixtureShape
+    a sh:NodeShape ;
+    sh:or (
+        ex:InitialMixtureShape
+        ex:ProductMixtureShape
+    ) .
+
+# Shape to check for matching reactions
+ex:MatchingReactionShape
+    a sh:NodeShape ;
+    sh:targetClass ro:Reaction ;
+    sh:property [
+        sh:path ex:hasInitialMixture ;
+        sh:node [
+            sh:path ro:hasReactant ;
+            sh:equals ex:InitialMixtureReference ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ex:hasProductMixture ;
+        sh:node [
+            sh:path ro:hasProduct ;
+            sh:equals ex:ProductMixtureReference ;
+        ] ;
+    ] .
+
+# Reference data for idealized reactions
+ex:InitialMixtureReference
+    a sh:NodeShape ;
+    sh:node [
+        sh:nodeKind sh:IRI ;
+        sh:in ( ex:Ethanol ex:CarbonDioxide ) ;
+    ] .
+
+ex:ProductMixtureReference
+    a sh:NodeShape ;
+    sh:node [
+        sh:nodeKind sh:IRI ;
+        sh:in ( ex:EthylAcetate ) ;
+    ] .
+
+# Shapes to ensure the correct reference data is used for comparison
+ex:CorrectInitialMixtureReference
+    a sh:NodeShape ;
+    sh:property [
+        sh:path ro:hasReactant ;
+        sh:equals ex:InitialMixtureReference ;
+    ] .
+
+ex:CorrectProductMixtureReference
+    a sh:NodeShape ;
+    sh:property [
+        sh:path ro:hasProduct ;
+        sh:equals ex:ProductMixtureReference ;
+    ] .
+
+# Shape to validate experimental reactions against idealized reactions
+ex:ExperimentalReactionValidationShape
+    a sh:NodeShape ;
+    sh:targetClass ro:Reaction ;
+    sh:property [
+        sh:path ro:type ;
+        sh:hasValue "experimental" ;
+    ] ;
+    sh:property [
+        sh:path ex:hasInitialMixture ;
+        sh:node ex:CorrectInitialMixtureReference ;
+    ] ;
+    sh:property [
+        sh:path ex:hasProductMixture ;
+        sh:node ex:CorrectProductMixtureReference ;
+    ] .
