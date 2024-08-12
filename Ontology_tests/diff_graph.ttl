@@ -1,0 +1,10 @@
+@prefix ns1: <http://www.example.org/chemicals#> .
+
+ns1:ExperimentalReaction1 ns1:hasIdealizedReaction ns1:IdealReaction1 .
+
+ns1:ExperimentalReaction2 ns1:hasIdealizedReaction ns1:IdealReaction2 .
+
+ns1:ExperimentalReaction3 ns1:hasIdealizedReaction ns1:IdealReaction1 .
+
+ns1:ExperimentalReaction5 ns1:hasIdealizedReaction ns1:IdealReaction3 .
+

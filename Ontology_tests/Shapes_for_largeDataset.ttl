@@ -1,0 +1,48 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://www.example.org/chemicals#> .
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+
+ex:ExperimentalReactionShape
+    a sh:NodeShape ;
+    sh:targetClass ro:Reaction ;
+	sh:rule [
+	a 	sh:SPARQLRule ;
+        sh:prefixes (
+            [ sh:prefix "ro" ; sh:namespace <http://www.example.org/reaction-ontology#> ]
+            [ sh:prefix "ex" ; sh:namespace <http://www.example.org/chemicals#> ]
+        ) ;
+        sh:construct """
+        PREFIX ex: <http://www.example.org/chemicals#>
+
+        CONSTRUCT {
+          ?this ex:hasIdealizedReaction ?idealReaction .
+        }
+        WHERE {
+          ?this a ro:Reaction ;
+                ro:type "experimental" ;
+                ex:hasInitialMixture ?experimentalInitialMixture ;
+                ex:hasProductMixture ?experimentalProductMixture .
+          
+          ?idealReaction a ro:Reaction ;
+                         ro:type "idealized" ;
+                         ex:hasInitialMixture ?idealInitialMixture ;
+                         ex:hasProductMixture ?idealProductMixture .
+
+          # Ensure all reactants of the idealized reaction are present in the experimental reaction
+          FILTER NOT EXISTS {
+            ?idealInitialMixture ro:hasReactant ?idealReactant .
+            FILTER NOT EXISTS {
+              ?experimentalInitialMixture ro:hasReactant ?idealReactant .
+            }
+          }
+          
+          # Ensure all products of the idealized reaction are present in the experimental reaction
+          FILTER NOT EXISTS {
+            ?idealProductMixture ro:hasProduct ?idealProduct .
+            FILTER NOT EXISTS {
+              ?experimentalProductMixture ro:hasProduct ?idealProduct .
+            }
+          }
+        }
+        """ ;
+    ] .

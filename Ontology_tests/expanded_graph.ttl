@@ -1,0 +1,161 @@
+@prefix ex: <http://www.example.org/chemicals#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ro: <http://www.example.org/reaction-ontology#> .
+
+ex:ExperimentalReaction1 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasIdealizedReaction ex:IdealReaction1 ;
+    ex:hasInitialMixture ex:InitialMixture_e1 ;
+    ex:hasProductMixture ex:ProductMixture_e1 ;
+    ro:type "experimental" .
+
+ex:ExperimentalReaction2 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasIdealizedReaction ex:IdealReaction2 ;
+    ex:hasInitialMixture ex:InitialMixture_e2 ;
+    ex:hasProductMixture ex:ProductMixture_e3 ;
+    ro:type "experimental" .
+
+ex:ExperimentalReaction3 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasIdealizedReaction ex:IdealReaction1 ;
+    ex:hasInitialMixture ex:InitialMixture_e3 ;
+    ex:hasProductMixture ex:ProductMixture_e1 ;
+    ro:type "experimental" .
+
+ex:ExperimentalReaction4 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasInitialMixture ex:InitialMixture_e3 ;
+    ex:hasProductMixture ex:ProductMixture_e4 ;
+    ro:type "experimental" .
+
+ex:ExperimentalReaction5 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasIdealizedReaction ex:IdealReaction3 ;
+    ex:hasInitialMixture ex:InitialMixture_e4 ;
+    ex:hasProductMixture ex:ProductMixture_e5 ;
+    ro:type "experimental" .
+
+ex:ExperimentalReaction6 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasInitialMixture ex:InitialMixture_e5 ;
+    ex:hasProductMixture ex:ProductMixture_e2 ;
+    ro:type "experimental" .
+
+ex:IdealReaction2 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasInitialMixture ex:InitialMixture_i2 ;
+    ex:hasProductMixture ex:ProductMixture_i2 ;
+    ro:type "idealized" .
+
+ex:IdealReaction3 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasInitialMixture ex:InitialMixture_i3 ;
+    ex:hasProductMixture ex:ProductMixture_i3 ;
+    ro:type "idealized" .
+
+ex:InitialMixture_e1 a rdfs:Resource ;
+    ro:hasReactant ex:CarbonDioxide,
+        ex:Ethanol .
+
+ex:InitialMixture_e2 a rdfs:Resource ;
+    ro:hasReactant ex:AceticAcid,
+        ex:Methanol .
+
+ex:InitialMixture_e4 a rdfs:Resource ;
+    ro:hasReactant ex:Ethanol .
+
+ex:InitialMixture_e5 a rdfs:Resource ;
+    ro:hasReactant ex:CarbonDioxide,
+        ex:Methanol .
+
+ex:InitialMixture_i1 a rdfs:Resource ;
+    ro:hasReactant ex:CarbonDioxide,
+        ex:Ethanol .
+
+ex:InitialMixture_i2 a rdfs:Resource ;
+    ro:hasReactant ex:AceticAcid .
+
+ex:InitialMixture_i3 a rdfs:Resource ;
+    ro:hasReactant ex:Ethanol .
+
+ex:ProductMixture_e2 a rdfs:Resource .
+
+ex:ProductMixture_e3 a rdfs:Resource ;
+    ro:hasProduct ex:DiethylEther,
+        ex:Formate .
+
+ex:ProductMixture_e4 a rdfs:Resource ;
+    ro:hasProduct ex:DiethylEther .
+
+ex:ProductMixture_e5 a rdfs:Resource ;
+    ro:hasProduct ex:EthyleneGlycol .
+
+ex:ProductMixture_i1 a rdfs:Resource ;
+    ro:hasProduct ex:EthylAcetate .
+
+ex:ProductMixture_i2 a rdfs:Resource ;
+    ro:hasProduct ex:DiethylEther,
+        ex:Formate .
+
+ex:ProductMixture_i3 a rdfs:Resource ;
+    ro:hasProduct ex:EthyleneGlycol .
+
+ex:hasInitialMixture a rdf:Property ;
+    rdfs:subPropertyOf ex:hasInitialMixture .
+
+ex:hasProductMixture a rdf:Property ;
+    rdfs:subPropertyOf ex:hasProductMixture .
+
+ro:hasProduct a rdf:Property ;
+    rdfs:subPropertyOf ro:hasProduct .
+
+ro:hasReactant a rdf:Property ;
+    rdfs:subPropertyOf ro:hasReactant .
+
+ro:type a rdf:Property ;
+    rdfs:subPropertyOf ro:type .
+
+rdf:type a rdf:Property ;
+    rdfs:subPropertyOf rdf:type .
+
+rdfs:subPropertyOf a rdf:Property ;
+    rdfs:subPropertyOf rdfs:subPropertyOf .
+
+ex:AceticAcid a rdfs:Resource .
+
+ex:EthylAcetate a rdfs:Resource .
+
+ex:EthyleneGlycol a rdfs:Resource .
+
+ex:Formate a rdfs:Resource .
+
+ex:IdealReaction1 a ro:Reaction,
+        rdfs:Resource ;
+    ex:hasInitialMixture ex:InitialMixture_i1 ;
+    ex:hasProductMixture ex:ProductMixture_i1 ;
+    ro:type "idealized" .
+
+ex:InitialMixture_e3 a rdfs:Resource ;
+    ro:hasReactant ex:CarbonDioxide,
+        ex:Ethanol,
+        ex:Methanol .
+
+ex:ProductMixture_e1 a rdfs:Resource ;
+    ro:hasProduct ex:EthylAcetate .
+
+ex:DiethylEther a rdfs:Resource .
+
+ex:Methanol a rdfs:Resource .
+
+"idealized" a rdfs:Resource .
+
+ex:CarbonDioxide a rdfs:Resource .
+
+ex:Ethanol a rdfs:Resource .
+
+"experimental" a rdfs:Resource .
+
+ro:Reaction a rdfs:Resource .
+
