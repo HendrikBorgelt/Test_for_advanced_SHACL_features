@@ -1,0 +1,48 @@
+@prefix ontologies: <https://nfdi4cat.org/ontologies/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.semanticweb.org/smhhborg/ontologies/2024/4/untitled-ontology-140> a owl:Ontology .
+
+ontologies:reac4cat_000081 a owl:ObjectProperty ;
+    rdfs:label "ra_1"@de .
+
+ontologies:reac4cat_000082 a owl:ObjectProperty ;
+    rdfs:label "ra_2"@de ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+ontologies:reac4cat_000083 a owl:ObjectProperty ;
+    rdfs:label "ra_3"@de ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+ontologies:reac4cat_000084 a owl:NamedIndividual,
+        ontologies:reac4cat_000077 ;
+    rdfs:label "a_1"@de ;
+    ontologies:reac4cat_000081 ontologies:reac4cat_000085 .
+
+ontologies:reac4cat_000077 a owl:Class ;
+    rdfs:label "A_1"@de .
+
+ontologies:reac4cat_000078 a owl:Class ;
+    rdfs:label "A_2"@de .
+
+ontologies:reac4cat_000079 a owl:Class ;
+    rdfs:label "A_3"@de .
+
+ontologies:reac4cat_000080 a owl:Class ;
+    rdfs:label "A_4"@de .
+
+ontologies:reac4cat_000085 a owl:NamedIndividual,
+        ontologies:reac4cat_000078 ;
+    rdfs:label "a_2"@de ;
+    ontologies:reac4cat_000082 ontologies:reac4cat_000086 ;
+    ontologies:reac4cat_000083 ontologies:reac4cat_000088 .
+
+ontologies:reac4cat_000086 a owl:NamedIndividual,
+        ontologies:reac4cat_000079 ;
+    rdfs:label "a_3"@de .
+
+ontologies:reac4cat_000088 a owl:NamedIndividual,
+        ontologies:reac4cat_000080 ;
+    rdfs:label "a_4"@de .
+
